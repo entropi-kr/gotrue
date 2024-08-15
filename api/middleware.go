@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"github.com/golang-jwt/jwt/v5"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -11,8 +12,7 @@ import (
 	"github.com/didip/tollbooth/v5"
 	"github.com/didip/tollbooth/v5/limiter"
 	"github.com/gobuffalo/uuid"
-	jwt "github.com/golang-jwt/jwt/v4"
-	"github.com/netlify/gotrue/models"
+	"gitlab.com/entropi-tech/gotrue/models"
 )
 
 const (
@@ -22,7 +22,7 @@ const (
 type FunctionHooks map[string][]string
 
 type NetlifyMicroserviceClaims struct {
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 	SiteURL       string        `json:"site_url"`
 	InstanceID    string        `json:"id"`
 	NetlifyID     string        `json:"netlify_id"`
@@ -89,7 +89,7 @@ func (a *API) loadInstanceConfig(w http.ResponseWriter, r *http.Request) (contex
 	}
 
 	claims := NetlifyMicroserviceClaims{}
-	p := jwt.Parser{ValidMethods: []string{jwt.SigningMethodHS256.Name}}
+	p := jwt.NewParser(jwt.WithValidMethods([]string{jwt.SigningMethodHS256.Name}))
 	_, err := p.ParseWithClaims(signature, &claims, func(token *jwt.Token) (interface{}, error) {
 		return []byte(a.config.OperatorToken), nil
 	})

@@ -10,11 +10,11 @@ import (
 	"time"
 
 	"github.com/gobuffalo/uuid"
-	jwt "github.com/golang-jwt/jwt/v4"
-	"github.com/netlify/gotrue/api/provider"
-	"github.com/netlify/gotrue/models"
-	"github.com/netlify/gotrue/storage"
+	jwt "github.com/golang-jwt/jwt/v5"
 	"github.com/sirupsen/logrus"
+	"gitlab.com/entropi-tech/gotrue/api/provider"
+	"gitlab.com/entropi-tech/gotrue/models"
+	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 type ExternalProviderClaims struct {
@@ -57,8 +57,8 @@ func (a *API) ExternalProviderRedirect(w http.ResponseWriter, r *http.Request) e
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, ExternalProviderClaims{
 		NetlifyMicroserviceClaims: NetlifyMicroserviceClaims{
-			StandardClaims: jwt.StandardClaims{
-				ExpiresAt: time.Now().Add(5 * time.Minute).Unix(),
+			RegisteredClaims: jwt.RegisteredClaims{
+				ExpiresAt: &jwt.NumericDate{Time: time.Now().Add(5 * time.Minute)},
 			},
 			SiteURL:    config.SiteURL,
 			InstanceID: getInstanceID(ctx).String(),
@@ -274,7 +274,7 @@ func (a *API) processInvite(ctx context.Context, tx *storage.Connection, userDat
 
 func (a *API) loadExternalState(ctx context.Context, state string) (context.Context, error) {
 	claims := ExternalProviderClaims{}
-	p := jwt.Parser{ValidMethods: []string{jwt.SigningMethodHS256.Name}}
+	p := jwt.NewParser(jwt.WithValidMethods([]string{jwt.SigningMethodHS256.Name}))
 	_, err := p.ParseWithClaims(state, &claims, func(token *jwt.Token) (interface{}, error) {
 		return []byte(a.config.OperatorToken), nil
 	})

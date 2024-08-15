@@ -1,0 +1,26 @@
+services:
+  gotrue-core:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - ${GOTRUE_API_PORT}
+    environment:
+      GOTRUE_DB_DRIVER: mysql
+      GOTRUE_DB_DATABASE_URL: gotrue:mysql@localhost/gotrue
+    restart: unless-stopped
+    depends_on:
+      - gotrue-mysql
+    networks:
+      - host
+
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  host:
+    external: true

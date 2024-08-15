@@ -2,9 +2,9 @@ package mailer
 
 import (
 	"github.com/badoux/checkmail"
-	"github.com/netlify/gotrue/conf"
-	"github.com/netlify/gotrue/models"
 	"github.com/netlify/mailme"
+	"gitlab.com/entropi-tech/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/models"
 )
 
 // TemplateMailer will send mail and use templates from the site for easy mail styling

@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"github.com/netlify/gotrue/conf"
-	"github.com/netlify/gotrue/models"
-	"github.com/netlify/gotrue/storage"
 	"github.com/gobuffalo/uuid"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"gitlab.com/entropi-tech/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/models"
+	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 var autoconfirm, isSuperAdmin, isAdmin bool

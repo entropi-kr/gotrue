@@ -3,13 +3,13 @@ package models
 import (
 	"time"
 
-	"github.com/netlify/gotrue/storage/namespace"
+	"gitlab.com/entropi-tech/gotrue/storage/namespace"
 
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/uuid"
-	"github.com/netlify/gotrue/crypto"
-	"github.com/netlify/gotrue/storage"
 	"github.com/pkg/errors"
+	"gitlab.com/entropi-tech/gotrue/crypto"
+	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 // RefreshToken is the database model for refresh tokens.
@@ -30,7 +30,7 @@ func (RefreshToken) TableName() string {
 	tableName := "refresh_tokens"
 
 	if namespace.GetNamespace() != "" {
-		return namespace.GetNamespace() + "_" + tableName
+		return namespace.GetNamespace() + "." + tableName
 	}
 
 	return tableName

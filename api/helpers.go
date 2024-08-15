@@ -10,11 +10,11 @@ import (
 	"net/url"
 
 	"github.com/gobuffalo/uuid"
-	"github.com/netlify/gotrue/conf"
-	"github.com/netlify/gotrue/models"
-	"github.com/netlify/gotrue/storage"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+	"gitlab.com/entropi-tech/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/models"
+	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 func addRequestID(globalConfig *conf.GlobalConfiguration) middlewareHandler {
@@ -48,6 +48,17 @@ func sendJSON(w http.ResponseWriter, status int, obj interface{}) error {
 	return err
 }
 
+func sendPrettyJSON(w http.ResponseWriter, status int, obj interface{}) error {
+	w.Header().Set("Content-Type", "application/json")
+	b, err := json.MarshalIndent(obj, "", "    ")
+	if err != nil {
+		return errors.Wrap(err, fmt.Sprintf("Error encoding json response: %v", obj))
+	}
+	w.WriteHeader(status)
+	_, err = w.Write(b)
+	return err
+}
+
 func getUserFromClaims(ctx context.Context, conn *storage.Connection) (*models.User, error) {
 	claims := getClaims(ctx)
 	if claims == nil {
@@ -62,7 +73,7 @@ func getUserFromClaims(ctx context.Context, conn *storage.Connection) (*models.U
 	instanceID := getInstanceID(ctx)
 
 	if claims.Subject == models.SystemUserUUID.String() || claims.Subject == models.SystemUserID {
-		return models.NewSystemUser(instanceID, claims.Audience), nil
+		return models.NewSystemUser(instanceID, claims.Audience[0]), nil
 	}
 	userID, err := uuid.FromString(claims.Subject)
 	if err != nil {
@@ -88,8 +99,8 @@ func (a *API) requestAud(ctx context.Context, r *http.Request) string {
 
 	// Then check the token
 	claims := getClaims(ctx)
-	if claims != nil && claims.Audience != "" {
-		return claims.Audience
+	if claims != nil && claims.Audience[0] != "" {
+		return claims.Audience[0]
 	}
 
 	// Finally, return the default of none of the above methods are successful

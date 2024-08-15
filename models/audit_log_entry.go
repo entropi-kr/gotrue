@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/gobuffalo/uuid"
-	"github.com/netlify/gotrue/storage"
-	"github.com/netlify/gotrue/storage/namespace"
 	"github.com/pkg/errors"
+	"gitlab.com/entropi-tech/gotrue/storage"
+	"gitlab.com/entropi-tech/gotrue/storage/namespace"
 )
 
 type AuditAction string
@@ -59,7 +59,7 @@ func (AuditLogEntry) TableName() string {
 	tableName := "audit_log_entries"
 
 	if namespace.GetNamespace() != "" {
-		return namespace.GetNamespace() + "_" + tableName
+		return namespace.GetNamespace() + "." + tableName
 	}
 
 	return tableName

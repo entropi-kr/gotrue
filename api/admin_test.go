@@ -2,6 +2,7 @@ package api
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -10,12 +11,12 @@ import (
 	"time"
 
 	"github.com/gobuffalo/uuid"
-	jwt "github.com/golang-jwt/jwt/v4"
-	"github.com/netlify/gotrue/conf"
-	"github.com/netlify/gotrue/models"
+	jwt "github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
+	"gitlab.com/entropi-tech/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/models"
 )
 
 type AdminTestSuite struct {
@@ -55,10 +56,10 @@ func (ts *AdminTestSuite) makeSuperAdmin(email string) string {
 	u.IsSuperAdmin = true
 	require.NoError(ts.T(), ts.API.db.Create(u), "Error creating user")
 
-	token, err := generateAccessToken(u, time.Second*time.Duration(ts.Config.JWT.Exp), ts.Config.JWT.Secret)
+	token, err := generateAccessToken(u, time.Second*time.Duration(ts.Config.JWT.Exp), context.Background())
 	require.NoError(ts.T(), err, "Error generating access token")
 
-	p := jwt.Parser{ValidMethods: []string{jwt.SigningMethodHS256.Name}}
+	p := jwt.NewParser(jwt.WithValidMethods([]string{jwt.SigningMethodHS256.Name}))
 	_, err = p.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		return []byte(ts.Config.JWT.Secret), nil
 	})
@@ -70,10 +71,10 @@ func (ts *AdminTestSuite) makeSuperAdmin(email string) string {
 func (ts *AdminTestSuite) makeSystemUser() string {
 	u := models.NewSystemUser(uuid.Nil, ts.Config.JWT.Aud)
 
-	token, err := generateAccessToken(u, time.Second*time.Duration(ts.Config.JWT.Exp), ts.Config.JWT.Secret)
+	token, err := generateAccessToken(u, time.Second*time.Duration(ts.Config.JWT.Exp), context.Background())
 	require.NoError(ts.T(), err, "Error generating access token")
 
-	p := jwt.Parser{ValidMethods: []string{jwt.SigningMethodHS256.Name}}
+	p := jwt.NewParser(jwt.WithValidMethods([]string{jwt.SigningMethodHS256.Name}))
 	_, err = p.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		return []byte(ts.Config.JWT.Secret), nil
 	})

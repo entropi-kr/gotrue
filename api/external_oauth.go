@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/netlify/gotrue/api/provider"
 	"github.com/sirupsen/logrus"
+	"gitlab.com/entropi-tech/gotrue/api/provider"
 )
 
 // loadOAuthState parses the `state` query parameter as a JWS payload,

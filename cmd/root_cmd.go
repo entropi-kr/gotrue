@@ -4,7 +4,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"github.com/netlify/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/conf"
 )
 
 var configFile = ""

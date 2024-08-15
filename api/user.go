@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/netlify/gotrue/models"
-	"github.com/netlify/gotrue/storage"
 	"github.com/gobuffalo/uuid"
+	"gitlab.com/entropi-tech/gotrue/models"
+	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 // UserUpdateParams parameters for updating a user
@@ -32,7 +32,7 @@ func (a *API) UserGet(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	aud := a.requestAud(ctx, r)
-	if aud != claims.Audience {
+	if aud != claims.Audience[0] {
 		return badRequestError("Token audience doesn't match request audience")
 	}
 

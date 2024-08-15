@@ -15,13 +15,13 @@ import (
 	"time"
 
 	"github.com/gobuffalo/uuid"
-	jwt "github.com/golang-jwt/jwt/v4"
+	jwt "github.com/golang-jwt/jwt/v5"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/netlify/gotrue/conf"
-	"github.com/netlify/gotrue/models"
-	"github.com/netlify/gotrue/storage"
+	"gitlab.com/entropi-tech/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/models"
+	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 type HookEvent string
@@ -38,7 +38,7 @@ const (
 var defaultTimeout = time.Second * 5
 
 type webhookClaims struct {
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 	SHA256 string `json:"sha256"`
 }
 
@@ -215,8 +215,8 @@ func triggerHook(ctx context.Context, hookURL *url.URL, secret string, conn *sto
 	}
 
 	claims := webhookClaims{
-		StandardClaims: jwt.StandardClaims{
-			IssuedAt: time.Now().Unix(),
+		RegisteredClaims: jwt.RegisteredClaims{
+			IssuedAt: &jwt.NumericDate{Time: time.Now()},
 			Subject:  instanceID.String(),
 			Issuer:   gotrueIssuer,
 		},

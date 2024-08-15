@@ -14,12 +14,12 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/gobuffalo/uuid"
 	"github.com/imdario/mergo"
-	"github.com/netlify/gotrue/conf"
-	"github.com/netlify/gotrue/mailer"
-	"github.com/netlify/gotrue/storage"
 	"github.com/rs/cors"
 	"github.com/sebest/xff"
 	"github.com/sirupsen/logrus"
+	"gitlab.com/entropi-tech/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/mailer"
+	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 const (
@@ -99,6 +99,10 @@ func NewAPIWithVersion(ctx context.Context, globalConfig *conf.GlobalConfigurati
 			r.Use(api.loadInstanceConfig)
 		}
 		r.Get("/", api.ExternalProviderCallback)
+	})
+
+	r.Route("/.well-known", func(r *router) {
+		r.Get("/jwks.json", api.Keys)
 	})
 
 	r.Route("/", func(r *router) {

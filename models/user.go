@@ -7,9 +7,9 @@ import (
 
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/uuid"
-	"github.com/netlify/gotrue/storage"
-	"github.com/netlify/gotrue/storage/namespace"
 	"github.com/pkg/errors"
+	"gitlab.com/entropi-tech/gotrue/storage"
+	"gitlab.com/entropi-tech/gotrue/storage/namespace"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -85,7 +85,7 @@ func (User) TableName() string {
 	tableName := "users"
 
 	if namespace.GetNamespace() != "" {
-		return namespace.GetNamespace() + "_" + tableName
+		return namespace.GetNamespace() + "." + tableName
 	}
 
 	return tableName
@@ -240,7 +240,7 @@ func CountOtherUsers(tx *storage.Connection, instanceID, id uuid.UUID) (int, err
 func findUser(tx *storage.Connection, query string, args ...interface{}) (*User, error) {
 	obj := &User{}
 	if err := tx.Q().Where(query, args...).First(obj); err != nil {
-		if errors.Cause(err) == sql.ErrNoRows {
+		if errors.Is(errors.Cause(err), sql.ErrNoRows) {
 			return nil, UserNotFoundError{}
 		}
 		return nil, errors.Wrap(err, "error finding user")

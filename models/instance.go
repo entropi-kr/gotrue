@@ -6,10 +6,10 @@ import (
 
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/uuid"
-	"github.com/netlify/gotrue/conf"
-	"github.com/netlify/gotrue/storage"
-	"github.com/netlify/gotrue/storage/namespace"
 	"github.com/pkg/errors"
+	"gitlab.com/entropi-tech/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/storage"
+	"gitlab.com/entropi-tech/gotrue/storage/namespace"
 )
 
 const baseConfigKey = ""
@@ -29,7 +29,7 @@ func (Instance) TableName() string {
 	tableName := "instances"
 
 	if namespace.GetNamespace() != "" {
-		return namespace.GetNamespace() + "_" + tableName
+		return namespace.GetNamespace() + "." + tableName
 	}
 
 	return tableName

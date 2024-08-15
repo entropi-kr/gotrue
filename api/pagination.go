@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/netlify/gotrue/models"
+	"gitlab.com/entropi-tech/gotrue/models"
 )
 
 const defaultPerPage = 50

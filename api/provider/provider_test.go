@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/netlify/gotrue/api/provider"
-	"github.com/netlify/gotrue/conf"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"gitlab.com/entropi-tech/gotrue/api/provider"
+	"gitlab.com/entropi-tech/gotrue/conf"
 	"golang.org/x/oauth2"
 )
 

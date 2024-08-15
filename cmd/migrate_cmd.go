@@ -5,10 +5,10 @@ import (
 	"os"
 
 	"github.com/gobuffalo/pop/v5"
-	"github.com/netlify/gotrue/conf"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"gitlab.com/entropi-tech/gotrue/conf"
 )
 
 var migrateCmd = cobra.Command{
@@ -37,7 +37,7 @@ func migrate(cmd *cobra.Command, args []string) {
 	}
 	if globalConfig.DB.Namespace != "" {
 		deets.Options = map[string]string{
-			"Namespace": globalConfig.DB.Namespace + "_",
+			"Namespace": globalConfig.DB.Namespace + ".",
 		}
 	}
 

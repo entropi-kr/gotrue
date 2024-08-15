@@ -5,16 +5,16 @@ import (
 	"net/http"
 	"time"
 
-	jwt "github.com/golang-jwt/jwt/v4"
-	"github.com/netlify/gotrue/conf"
-	"github.com/netlify/gotrue/metering"
-	"github.com/netlify/gotrue/models"
-	"github.com/netlify/gotrue/storage"
+	jwt "github.com/golang-jwt/jwt/v5"
+	"gitlab.com/entropi-tech/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/metering"
+	"gitlab.com/entropi-tech/gotrue/models"
+	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 // GoTrueClaims is a struct thats used for JWT claims
 type GoTrueClaims struct {
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 	Email        string                 `json:"email"`
 	AppMetaData  map[string]interface{} `json:"app_metadata"`
 	UserMetaData map[string]interface{} `json:"user_metadata"`
@@ -139,7 +139,7 @@ func (a *API) RefreshTokenGrant(ctx context.Context, w http.ResponseWriter, r *h
 			return internalServerError(terr.Error())
 		}
 
-		tokenString, terr = generateAccessToken(user, time.Second*time.Duration(config.JWT.Exp), config.JWT.Secret)
+		tokenString, terr = generateAccessToken(user, time.Second*time.Duration(config.JWT.Exp), ctx)
 		if terr != nil {
 			return internalServerError("error generating jwt token").WithInternalError(terr)
 		}
@@ -163,20 +163,25 @@ func (a *API) RefreshTokenGrant(ctx context.Context, w http.ResponseWriter, r *h
 	})
 }
 
-func generateAccessToken(user *models.User, expiresIn time.Duration, secret string) (string, error) {
+func generateAccessToken(user *models.User, expiresIn time.Duration, ctx context.Context) (string, error) {
 	claims := &GoTrueClaims{
-		StandardClaims: jwt.StandardClaims{
+		RegisteredClaims: jwt.RegisteredClaims{
 			Subject:   user.ID.String(),
-			Audience:  user.Aud,
-			ExpiresAt: time.Now().Add(expiresIn).Unix(),
+			Audience:  []string{user.Aud},
+			ExpiresAt: &jwt.NumericDate{Time: time.Now().Add(expiresIn)},
 		},
 		Email:        user.Email,
 		AppMetaData:  user.AppMetaData,
 		UserMetaData: user.UserMetaData,
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(secret))
+	privateKey, err := GetPrivateKey(ctx)
+	if err != nil {
+		return "", err
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodEdDSA, claims)
+	return token.SignedString(privateKey)
 }
 
 func (a *API) issueRefreshToken(ctx context.Context, conn *storage.Connection, user *models.User) (*AccessTokenResponse, error) {
@@ -195,7 +200,7 @@ func (a *API) issueRefreshToken(ctx context.Context, conn *storage.Connection, u
 			return internalServerError("Database error granting user").WithInternalError(terr)
 		}
 
-		tokenString, terr = generateAccessToken(user, time.Second*time.Duration(config.JWT.Exp), config.JWT.Secret)
+		tokenString, terr = generateAccessToken(user, time.Second*time.Duration(config.JWT.Exp), ctx)
 		if terr != nil {
 			return internalServerError("error generating jwt token").WithInternalError(terr)
 		}

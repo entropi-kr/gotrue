@@ -1,16 +1,15 @@
 package storage
 
 import (
-	"net/url"
-
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/pop/v5/columns"
-	"github.com/netlify/gotrue/conf"
-	"github.com/netlify/gotrue/storage/namespace"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+	"gitlab.com/entropi-tech/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/storage/namespace"
+	"net/url"
 )
 
 // Connection is the interface a storage provider must implement.
@@ -28,23 +27,29 @@ func Dial(config *conf.GlobalConfiguration) (*Connection, error) {
 		config.DB.Driver = u.Scheme
 	}
 
+	namespace.SetNamespace(config.DB.Namespace)
+
+	driver := ""
+	if config.DB.Driver != "postgres" {
+		logrus.Warn("DEPRECATION NOTICE: only PostgreSQL is supported by entropi GoTrue, will be removed soon")
+	} else {
+		// pop v5 uses pgx as the default PostgreSQL driver
+		driver = "pgx"
+	}
+
+	options := make(map[string]string)
+
 	db, err := pop.NewConnection(&pop.ConnectionDetails{
 		Dialect: config.DB.Driver,
+		Driver:  driver,
 		URL:     config.DB.URL,
+		Options: options,
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "opening database connection")
 	}
 	if err := db.Open(); err != nil {
 		return nil, errors.Wrap(err, "checking database connection")
-	}
-
-	if config.DB.Namespace != "" {
-		namespace.SetNamespace(config.DB.Namespace)
-	}
-
-	if logrus.StandardLogger().Level == logrus.DebugLevel {
-		pop.Debug = true
 	}
 
 	return &Connection{db}, nil

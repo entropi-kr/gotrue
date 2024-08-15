@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/gobuffalo/uuid"
-	jwt "github.com/golang-jwt/jwt/v4"
-	"github.com/netlify/gotrue/conf"
-	"github.com/netlify/gotrue/models"
+	jwt "github.com/golang-jwt/jwt/v5"
+	"gitlab.com/entropi-tech/gotrue/conf"
+	"gitlab.com/entropi-tech/gotrue/models"
 )
 
 type contextKey string

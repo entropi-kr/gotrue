@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	jwt "github.com/golang-jwt/jwt/v4"
+	jwt "github.com/golang-jwt/jwt/v5"
 )
 
 // requireAuthentication checks incoming requests for tokens presented using the Authorization header
@@ -75,12 +75,13 @@ func (a *API) extractBearerToken(w http.ResponseWriter, r *http.Request) (string
 
 func (a *API) parseJWTClaims(bearer string, r *http.Request, w http.ResponseWriter) (context.Context, error) {
 	ctx := r.Context()
-	config := a.getConfig(ctx)
 
-	p := jwt.Parser{ValidMethods: []string{jwt.SigningMethodHS256.Name}}
-	token, err := p.ParseWithClaims(bearer, &GoTrueClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(config.JWT.Secret), nil
-	})
+	keyFn, err := GetKeyfunc(ctx)
+	if err != nil {
+		return ctx, err
+	}
+
+	token, err := jwt.ParseWithClaims("", &GoTrueClaims{}, keyFn.Keyfunc)
 	if err != nil {
 		a.clearCookieToken(ctx, w)
 		return nil, unauthorizedError("Invalid token: %v", err)
