@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/entropi-kr/gotrue/models"
+	"github.com/entropi-kr/gotrue/storage"
 	"github.com/gobuffalo/uuid"
-	"gitlab.com/entropi-tech/gotrue/models"
-	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 // UserUpdateParams parameters for updating a user

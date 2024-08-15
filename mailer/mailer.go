@@ -4,10 +4,10 @@ import (
 	"net/url"
 	"regexp"
 
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/models"
 	"github.com/netlify/mailme"
 	"github.com/sirupsen/logrus"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/models"
 )
 
 // Mailer defines the interface a mailer must implement.

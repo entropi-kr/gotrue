@@ -3,9 +3,9 @@ package models_test
 import (
 	"testing"
 
+	"github.com/entropi-kr/gotrue/models"
 	"github.com/gobuffalo/pop/v5"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/entropi-tech/gotrue/models"
 )
 
 func TestTableNameNamespacing(t *testing.T) {

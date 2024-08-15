@@ -9,11 +9,11 @@ import (
 
 	"github.com/gobuffalo/uuid"
 
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/models"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/models"
 )
 
 var testUUID = uuid.Must(uuid.FromString("11111111-1111-1111-1111-111111111111"))

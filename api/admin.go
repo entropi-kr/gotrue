@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/entropi-kr/gotrue/models"
+	"github.com/entropi-kr/gotrue/storage"
 	"github.com/go-chi/chi"
 	"github.com/gobuffalo/uuid"
-	"gitlab.com/entropi-tech/gotrue/models"
-	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 type adminUserParams struct {

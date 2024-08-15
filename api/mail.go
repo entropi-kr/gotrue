@@ -4,11 +4,11 @@ import (
 	"context"
 	"time"
 
+	"github.com/entropi-kr/gotrue/crypto"
+	"github.com/entropi-kr/gotrue/mailer"
+	"github.com/entropi-kr/gotrue/models"
+	"github.com/entropi-kr/gotrue/storage"
 	"github.com/pkg/errors"
-	"gitlab.com/entropi-tech/gotrue/crypto"
-	"gitlab.com/entropi-tech/gotrue/mailer"
-	"gitlab.com/entropi-tech/gotrue/models"
-	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 func sendConfirmation(tx *storage.Connection, u *models.User, mailer mailer.Mailer, maxFrequency time.Duration, referrerURL string) error {

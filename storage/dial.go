@@ -2,13 +2,13 @@ package storage
 
 import (
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/storage/namespace"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/pop/v5/columns"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/storage/namespace"
 	"net/url"
 )
 

@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/entropi-kr/gotrue/storage"
+	"github.com/entropi-kr/gotrue/storage/namespace"
 	"github.com/gobuffalo/uuid"
 	"github.com/pkg/errors"
-	"gitlab.com/entropi-tech/gotrue/storage"
-	"gitlab.com/entropi-tech/gotrue/storage/namespace"
 )
 
 type AuditAction string

@@ -1,8 +1,8 @@
 package test
 
 import (
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/storage"
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/storage"
 )
 
 func SetupDBConnection(globalConfig *conf.GlobalConfiguration) (*storage.Connection, error) {

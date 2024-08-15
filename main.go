@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"gitlab.com/entropi-tech/gotrue/cmd"
+	"github.com/entropi-kr/gotrue/cmd"
 )
 
 func main() {

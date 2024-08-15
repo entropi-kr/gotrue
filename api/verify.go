@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"gitlab.com/entropi-tech/gotrue/models"
-	"gitlab.com/entropi-tech/gotrue/storage"
+	"github.com/entropi-kr/gotrue/models"
+	"github.com/entropi-kr/gotrue/storage"
 )
 
 const (

@@ -11,8 +11,8 @@ import (
 
 	"github.com/didip/tollbooth/v5"
 	"github.com/didip/tollbooth/v5/limiter"
+	"github.com/entropi-kr/gotrue/models"
 	"github.com/gobuffalo/uuid"
-	"gitlab.com/entropi-tech/gotrue/models"
 )
 
 const (

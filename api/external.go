@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/entropi-kr/gotrue/api/provider"
+	"github.com/entropi-kr/gotrue/models"
+	"github.com/entropi-kr/gotrue/storage"
 	"github.com/gobuffalo/uuid"
 	jwt "github.com/golang-jwt/jwt/v5"
 	"github.com/sirupsen/logrus"
-	"gitlab.com/entropi-tech/gotrue/api/provider"
-	"gitlab.com/entropi-tech/gotrue/models"
-	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 type ExternalProviderClaims struct {

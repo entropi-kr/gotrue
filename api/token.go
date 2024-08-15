@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/metering"
+	"github.com/entropi-kr/gotrue/models"
+	"github.com/entropi-kr/gotrue/storage"
 	jwt "github.com/golang-jwt/jwt/v5"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/metering"
-	"gitlab.com/entropi-tech/gotrue/models"
-	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 // GoTrueClaims is a struct thats used for JWT claims

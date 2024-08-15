@@ -1,8 +1,8 @@
 package models
 
 import (
+	"github.com/entropi-kr/gotrue/storage"
 	"github.com/gobuffalo/pop/v5"
-	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 type Pagination struct {

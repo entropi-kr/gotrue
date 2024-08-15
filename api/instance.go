@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/models"
 	"github.com/go-chi/chi"
 	"github.com/gobuffalo/uuid"
 	"github.com/pkg/errors"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/models"
 )
 
 func (a *API) loadInstance(w http.ResponseWriter, r *http.Request) (context.Context, error) {

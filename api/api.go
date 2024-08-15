@@ -11,15 +11,15 @@ import (
 
 	"github.com/didip/tollbooth/v5"
 	"github.com/didip/tollbooth/v5/limiter"
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/mailer"
+	"github.com/entropi-kr/gotrue/storage"
 	"github.com/go-chi/chi"
 	"github.com/gobuffalo/uuid"
 	"github.com/imdario/mergo"
 	"github.com/rs/cors"
 	"github.com/sebest/xff"
 	"github.com/sirupsen/logrus"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/mailer"
-	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 const (

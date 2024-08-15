@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"time"
 
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/storage"
+	"github.com/entropi-kr/gotrue/storage/namespace"
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/uuid"
 	"github.com/pkg/errors"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/storage"
-	"gitlab.com/entropi-tech/gotrue/storage/namespace"
 )
 
 const baseConfigKey = ""

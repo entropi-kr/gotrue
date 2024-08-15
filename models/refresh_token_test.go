@@ -3,12 +3,12 @@ package models
 import (
 	"testing"
 
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/storage"
+	"github.com/entropi-kr/gotrue/storage/test"
 	"github.com/gobuffalo/uuid"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/storage"
-	"gitlab.com/entropi-tech/gotrue/storage/test"
 )
 
 type RefreshTokenTestSuite struct {

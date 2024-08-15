@@ -4,11 +4,11 @@ import (
 	"net/url"
 	"os"
 
+	"github.com/entropi-kr/gotrue/conf"
 	"github.com/gobuffalo/pop/v5"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"gitlab.com/entropi-tech/gotrue/conf"
 )
 
 var migrateCmd = cobra.Command{

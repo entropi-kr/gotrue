@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strings"
 
-	"gitlab.com/entropi-tech/gotrue/conf"
+	"github.com/entropi-kr/gotrue/conf"
 	"golang.org/x/oauth2"
 )
 

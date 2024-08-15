@@ -1,4 +1,4 @@
-module gitlab.com/entropi-tech/gotrue
+module github.com/entropi-kr/gotrue
 
 require (
 	github.com/GoogleCloudPlatform/cloudsql-proxy v1.27.0

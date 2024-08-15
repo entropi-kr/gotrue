@@ -3,13 +3,13 @@ package models
 import (
 	"time"
 
-	"gitlab.com/entropi-tech/gotrue/storage/namespace"
+	"github.com/entropi-kr/gotrue/storage/namespace"
 
+	"github.com/entropi-kr/gotrue/crypto"
+	"github.com/entropi-kr/gotrue/storage"
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/uuid"
 	"github.com/pkg/errors"
-	"gitlab.com/entropi-tech/gotrue/crypto"
-	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 // RefreshToken is the database model for refresh tokens.

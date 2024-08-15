@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"gitlab.com/entropi-tech/gotrue/models"
+	"github.com/entropi-kr/gotrue/models"
 )
 
 func sort(r *http.Request, allowedFields map[string]bool, defaultSort []models.SortField) (*models.SortParams, error) {

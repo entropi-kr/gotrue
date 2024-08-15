@@ -9,12 +9,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/models"
+	"github.com/entropi-kr/gotrue/storage/test"
 	"github.com/gobuffalo/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/models"
-	"gitlab.com/entropi-tech/gotrue/storage/test"
 )
 
 func TestSignupHookSendInstanceID(t *testing.T) {

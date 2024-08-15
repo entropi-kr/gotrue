@@ -17,14 +17,14 @@ import (
 	"strings"
 	"time"
 
-	"gitlab.com/entropi-tech/gotrue/models"
-	"gitlab.com/entropi-tech/gotrue/storage"
+	"github.com/entropi-kr/gotrue/models"
+	"github.com/entropi-kr/gotrue/storage"
 
+	"github.com/entropi-kr/gotrue/conf"
 	"github.com/gobuffalo/uuid"
 	saml2 "github.com/russellhaering/gosaml2"
 	"github.com/russellhaering/gosaml2/types"
 	dsig "github.com/russellhaering/goxmldsig"
-	"gitlab.com/entropi-tech/gotrue/conf"
 	"golang.org/x/oauth2"
 )
 

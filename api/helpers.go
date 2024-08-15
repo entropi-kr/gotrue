@@ -9,12 +9,12 @@ import (
 	"net/http/httptrace"
 	"net/url"
 
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/models"
+	"github.com/entropi-kr/gotrue/storage"
 	"github.com/gobuffalo/uuid"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/models"
-	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 func addRequestID(globalConfig *conf.GlobalConfiguration) middlewareHandler {

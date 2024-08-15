@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"gitlab.com/entropi-tech/gotrue/api/provider"
+	"github.com/entropi-kr/gotrue/api/provider"
 )
 
 func (a *API) loadSAMLState(w http.ResponseWriter, r *http.Request) (context.Context, error) {

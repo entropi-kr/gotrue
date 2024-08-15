@@ -1,6 +1,6 @@
 package mailer
 
-import "gitlab.com/entropi-tech/gotrue/models"
+import "github.com/entropi-kr/gotrue/models"
 
 type noopMailer struct {
 }

@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/entropi-kr/gotrue/api"
+	"github.com/entropi-kr/gotrue/conf"
+	"github.com/entropi-kr/gotrue/storage"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"gitlab.com/entropi-tech/gotrue/api"
-	"gitlab.com/entropi-tech/gotrue/conf"
-	"gitlab.com/entropi-tech/gotrue/storage"
 )
 
 var multiCmd = cobra.Command{
